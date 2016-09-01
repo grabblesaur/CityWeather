@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CityWeather</string>
+    <string name="action_settings">Settings</string>
+    <string name="list_item_icon_weather_description">weather_ic</string>
+    <string name="list_item_current_temperature">15</string>
+    <string name="example_city">Example city</string>
+    <string name="list_item_delete">delete_ic</string>
+</resources>
