@@ -16,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesViewHolder> {
-    private static final String TAG = CitiesAdapter.class.getSimpleName();
     private List<City> mCityList;
 
     public CitiesAdapter(List<City> cityList) {
@@ -40,18 +39,6 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
     public int getItemCount() {
         return mCityList.size();
     }
-
-//    public void removeItem(int position) {
-//        mCityList.remove(position);
-//        notifyItemRemoved(position);
-//        notifyItemRangeChanged(position, mCityList.size());
-//    }
-//
-//    public void addItem(int position, City city) {
-//        mCityList.add(position, city);
-//        notifyItemInserted(position);
-//        notifyItemRangeChanged(position, mCityList.size());
-//    }
 
     public class CitiesViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.list_item_icon_weather)

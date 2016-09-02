@@ -5,4 +5,8 @@
     <string name="list_item_current_temperature">15</string>
     <string name="example_city">Example city</string>
     <string name="list_item_delete">delete_ic</string>
+    <string name="dialog_title">Add new city</string>
+    <string name="dialog_label_name">Name</string>
+    <string name="add_btn">add</string>
+    <string name="cancel_btn">cancel</string>
 </resources>

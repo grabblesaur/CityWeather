@@ -14,38 +14,41 @@ import android.view.ViewGroup;
 import com.example.bayar.cityweather.R;
 import com.example.bayar.cityweather.adapter.CitiesAdapter;
 import com.example.bayar.cityweather.model.City;
+import com.example.bayar.cityweather.rest.ApiClient;
+import com.example.bayar.cityweather.rest.OpenWeatherMapService;
 
-import org.parceler.Parcels;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.schedulers.Schedulers;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
-    public static final String LIST_KEY = "qwegfdsa";
+    private static final String API_KEY = "20506595c1c227a987bb75a5f0b26b1a";
+
+    private OpenWeatherMapService service = ApiClient.getClient().create(OpenWeatherMapService.class);
+    private Subscription apiSubscription;
+    private List<City> mCityList = new ArrayList<>();
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
     Unbinder unbinder;
-    List<City> mCityList;
     Context mContext;
     private CitiesAdapter mAdapter;
 
     public MainFragment() {
     }
 
-    public static MainFragment newInstance(List<City>cityList) {
+    public static MainFragment newInstance() {
         Log.d(TAG, "newInstance: ");
-        MainFragment fragment = new MainFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(LIST_KEY, Parcels.wrap(cityList));
-        fragment.setArguments(bundle);
-        return fragment;
+        return new MainFragment();
     }
 
     @Override
@@ -68,10 +71,37 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
 
-        mCityList = Parcels.unwrap(getArguments().getParcelable(LIST_KEY));
         mAdapter = new CitiesAdapter(mCityList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
+
+        fetchData("Moscow");
+    }
+
+    public void fetchData(String cityName) {
+        Log.d(TAG, "fetchData: city: " + cityName);
+        apiSubscription =
+                service.getCityWeatherByName(cityName, API_KEY)
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(new Subscriber<City>() {
+                            @Override
+                            public void onCompleted() {
+                                Log.d(TAG, "onCompleted: ");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.d(TAG, "onError: " + e);
+                            }
+
+                            @Override
+                            public void onNext(City city) {
+                                Log.d(TAG, "onNext: ");
+                                mCityList.add(city);
+                                mAdapter.notifyItemInserted(mCityList.size() - 1);
+                                Log.d(TAG, "onNext: city was added, mCityList.size() = " + mCityList.size());
+                            }
+                        });
     }
 
     @Override
@@ -79,9 +109,8 @@ public class MainFragment extends Fragment {
         Log.d(TAG, "onDestroyView: ");
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    public CitiesAdapter getAdapter() {
-        return mAdapter;
+        if (apiSubscription != null && apiSubscription.isUnsubscribed()) {
+            apiSubscription.unsubscribe();
+        }
     }
 }

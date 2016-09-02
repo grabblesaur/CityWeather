@@ -23,12 +23,12 @@ public class Main {
     Double tempMin;
     @SerializedName("temp_max")
     @Expose
-    Long tempMax;
+    Double tempMax;
 
     public Main() {
     }
 
-    public Main(Double temp, Long pressure, Long humidity, Double tempMin, Long tempMax) {
+    public Main(Double temp, Long pressure, Long humidity, Double tempMin, Double tempMax) {
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -68,11 +68,11 @@ public class Main {
         this.tempMin = tempMin;
     }
 
-    public Long getTempMax() {
+    public Double getTempMax() {
         return tempMax;
     }
 
-    public void setTempMax(Long tempMax) {
+    public void setTempMax(Double tempMax) {
         this.tempMax = tempMax;
     }
 
