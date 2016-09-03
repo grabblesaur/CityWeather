@@ -9,4 +9,11 @@
     <string name="dialog_label_name">Name</string>
     <string name="add_btn">add</string>
     <string name="cancel_btn">cancel</string>
+    <string name="detail_date">Date, time</string>
+    <string name="detail_desc">Description</string>
+    <string name="wind_icon">wind icon</string>
+    <string name="detail_wind">15.6</string>
+    <string name="example_in_percent">50%</string>
+    <string name="sunrise">sunrise time</string>
+    <string name="sunset">sunset time</string>
 </resources>

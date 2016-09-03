@@ -8,18 +8,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bayar.cityweather.R;
+import com.example.bayar.cityweather.activity.MainActivity;
 import com.example.bayar.cityweather.model.City;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesViewHolder> {
     private List<City> mCityList;
+    private MainActivity mListener;
 
-    public CitiesAdapter(List<City> cityList) {
+    public CitiesAdapter(List<City> cityList, MainActivity listener) {
         mCityList = cityList;
+        mListener = listener;
     }
 
     @Override
@@ -41,12 +45,16 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
     }
 
     public class CitiesViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.list_item_icon_weather)
         ImageView iconWeather;
         @BindView(R.id.list_item_current_temperature)
         TextView temperature;
         @BindView(R.id.list_item_city_name)
         TextView cityName;
+
+        private int mPosition;
+        private City mCurrentCity;
 
         public CitiesViewHolder(View itemView) {
             super(itemView);
@@ -57,6 +65,23 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
             iconWeather.setImageResource(city.getWeather().get(0).getDrawableId());
             temperature.setText(city.getMain().getFormattedTemp());
             cityName.setText(city.getName());
+
+            mPosition = position;
+            mCurrentCity = city;
         }
+
+        @OnClick(R.id.list_item_icon_delete) void onItemDelete(View view) {
+            delete(mPosition);
+        }
+
+        @OnClick(R.id.item) void onItemClicked() {
+            mListener.onItemClicked(mCurrentCity);
+        }
+    }
+
+    private void delete(int position) {
+        mCityList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mCityList.size());
     }
 }

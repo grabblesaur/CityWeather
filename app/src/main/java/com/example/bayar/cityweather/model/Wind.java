@@ -27,4 +27,8 @@ public class Wind {
     public void setSpeed(Double speed) {
         this.speed = speed;
     }
+
+    public String getFormattedSpeed() {
+        return String.valueOf(speed) + " m/h";
+    }
 }

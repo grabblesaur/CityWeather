@@ -14,10 +14,10 @@ public class Main {
     Double temp;
     @SerializedName("pressure")
     @Expose
-    Long pressure;
+    Double pressure;
     @SerializedName("humidity")
     @Expose
-    Long humidity;
+    int humidity;
     @SerializedName("temp_min")
     @Expose
     Double tempMin;
@@ -28,7 +28,7 @@ public class Main {
     public Main() {
     }
 
-    public Main(Double temp, Long pressure, Long humidity, Double tempMin, Double tempMax) {
+    public Main(Double temp, Double pressure, int humidity, Double tempMin, Double tempMax) {
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -44,19 +44,19 @@ public class Main {
         this.temp = temp;
     }
 
-    public Long getPressure() {
+    public Double getPressure() {
         return pressure;
     }
 
-    public void setPressure(Long pressure) {
+    public void setPressure(Double pressure) {
         this.pressure = pressure;
     }
 
-    public Long getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Long humidity) {
+    public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
 
@@ -78,5 +78,13 @@ public class Main {
 
     public String getFormattedTemp() {
         return String.valueOf(temp) + "°C";
+    }
+
+    public String getFormattedHumidity() {
+        return String.valueOf(humidity) + " %";
+    }
+
+    public String getFormattedPressure() {
+        return String.valueOf(pressure) + " hPa";
     }
 }

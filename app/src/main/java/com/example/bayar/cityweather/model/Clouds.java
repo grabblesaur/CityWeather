@@ -11,20 +11,24 @@ public class Clouds {
 
     @SerializedName("all")
     @Expose
-    Long all;
+    int all;
 
     public Clouds() {
     }
 
-    public Clouds(Long all) {
+    public Clouds(int all) {
         this.all = all;
     }
 
-    public Long getAll() {
+    public int getAll() {
         return all;
     }
 
-    public void setAll(Long all) {
+    public void setAll(int all) {
         this.all = all;
+    }
+
+    public String getFormattedClouds() {
+        return String.valueOf(all) + " %";
     }
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bayar.cityweather.R;
+import com.example.bayar.cityweather.activity.MainActivity;
 import com.example.bayar.cityweather.adapter.CitiesAdapter;
 import com.example.bayar.cityweather.model.City;
 import com.example.bayar.cityweather.rest.ApiClient;
@@ -25,9 +26,14 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainFragment extends Fragment {
+
+    public interface OnItemSelectedInterface {
+        void onItemClicked(City city);
+    }
 
     private static final String TAG = MainFragment.class.getSimpleName();
     private static final String API_KEY = "20506595c1c227a987bb75a5f0b26b1a";
@@ -39,9 +45,10 @@ public class MainFragment extends Fragment {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    Unbinder unbinder;
-    Context mContext;
+    private Unbinder unbinder;
+    private Context mContext;
     private CitiesAdapter mAdapter;
+    private MainActivity mListener;
 
     public MainFragment() {
     }
@@ -70,12 +77,11 @@ public class MainFragment extends Fragment {
         Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
+        mListener = (MainActivity) getActivity();
 
-        mAdapter = new CitiesAdapter(mCityList);
+        mAdapter = new CitiesAdapter(mCityList, mListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
-
-        fetchData("Moscow");
     }
 
     public void fetchData(String cityName) {
@@ -83,6 +89,7 @@ public class MainFragment extends Fragment {
         apiSubscription =
                 service.getCityWeatherByName(cityName, API_KEY)
                         .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<City>() {
                             @Override
                             public void onCompleted() {
@@ -98,7 +105,7 @@ public class MainFragment extends Fragment {
                             public void onNext(City city) {
                                 Log.d(TAG, "onNext: ");
                                 mCityList.add(city);
-                                mAdapter.notifyItemInserted(mCityList.size() - 1);
+                                mAdapter.notifyItemInserted(mCityList.size());
                                 Log.d(TAG, "onNext: city was added, mCityList.size() = " + mCityList.size());
                             }
                         });

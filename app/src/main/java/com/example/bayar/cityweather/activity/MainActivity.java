@@ -9,8 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bayar.cityweather.R;
+import com.example.bayar.cityweather.fragment.DetailFragment;
 import com.example.bayar.cityweather.fragment.DialogAddItemFragment;
 import com.example.bayar.cityweather.fragment.MainFragment;
+import com.example.bayar.cityweather.model.City;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,7 +20,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity
-        implements DialogAddItemFragment.addCityInterface{
+        implements DialogAddItemFragment.addCityInterface,
+        MainFragment.OnItemSelectedInterface{
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -84,6 +87,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void addCity(String cityName) {
         mMainFragment.fetchData(cityName);
+    }
+
+    @Override
+    public void onItemClicked(City city) {
+        DetailFragment fragment = DetailFragment.newInstance(city);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
 

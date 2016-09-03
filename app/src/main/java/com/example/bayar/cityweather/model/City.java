@@ -6,7 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Parcel
@@ -161,5 +164,12 @@ public class City {
 
     public void setCod(Long cod) {
         this.cod = cod;
+    }
+
+    public String getFormattedDate() {
+        Date date = new Date(dt*1000);
+        DateFormat dateFormat =
+                SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.LONG, SimpleDateFormat.LONG);
+        return dateFormat.format(date);
     }
 }

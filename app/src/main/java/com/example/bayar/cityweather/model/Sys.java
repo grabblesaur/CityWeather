@@ -6,6 +6,12 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Parcel
 public class Sys {
 
@@ -86,5 +92,20 @@ public class Sys {
 
     public void setSunset(Long sunset) {
         this.sunset = sunset;
+    }
+
+    public List<String> getFormattedSunSetRise() {
+        List<String> result = new ArrayList<>();
+
+        Date sunriseDate = new Date(sunrise*1000);
+        Date sunsetDate = new Date(sunset*1000);
+
+        String pattern = "HH:mm";
+        DateFormat df = SimpleDateFormat.getDateTimeInstance();
+
+        result.add(df.format(sunriseDate));
+        result.add(df.format(sunsetDate));
+
+        return result;
     }
 }
