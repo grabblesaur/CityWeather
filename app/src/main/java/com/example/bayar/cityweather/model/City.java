@@ -12,45 +12,45 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class City {
 
     @SerializedName("coord")
     @Expose
-    Coord coord;
+    private Coord coord;
     @SerializedName("weather")
     @Expose
-    List<Weather> weather = new ArrayList<Weather>();
+    private List<Weather> weather = new ArrayList<Weather>();
     @SerializedName("base")
     @Expose
-    String base;
+    private String base;
     @SerializedName("main")
     @Expose
-    Main main;
+    private Main main;
     @SerializedName("visibility")
     @Expose
-    Long visibility;
+    private Long visibility;
     @SerializedName("wind")
     @Expose
-    Wind wind;
+    private Wind wind;
     @SerializedName("clouds")
     @Expose
-    Clouds clouds;
+    private Clouds clouds;
     @SerializedName("dt")
     @Expose
-    Long dt;
+    private Long dt;
     @SerializedName("sys")
     @Expose
-    Sys sys;
+    private Sys sys;
     @SerializedName("id")
     @Expose
-    Long id;
+    private Long id;
     @SerializedName("name")
     @Expose
-    String name;
+    private String name;
     @SerializedName("cod")
     @Expose
-    Long cod;
+    private Long cod;
 
     public City() {
     }

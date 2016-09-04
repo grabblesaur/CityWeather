@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.bayar.cityweather.R;
 import com.example.bayar.cityweather.activity.MainActivity;
 import com.example.bayar.cityweather.adapter.CitiesAdapter;
+import com.example.bayar.cityweather.adapter.ItemDivider;
 import com.example.bayar.cityweather.model.City;
 import com.example.bayar.cityweather.rest.ApiClient;
 import com.example.bayar.cityweather.rest.OpenWeatherMapService;
@@ -82,6 +83,7 @@ public class MainFragment extends Fragment {
         mAdapter = new CitiesAdapter(mCityList, mListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new ItemDivider(mContext));
     }
 
     public void fetchData(String cityName) {

@@ -12,27 +12,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class Sys {
 
     @SerializedName("type")
     @Expose
-    Long type;
+    private Long type;
     @SerializedName("id")
     @Expose
-    Long id;
+    private Long id;
     @SerializedName("message")
     @Expose
-    Double message;
+    private Double message;
     @SerializedName("country")
     @Expose
-    String country;
+    private String country;
     @SerializedName("sunrise")
     @Expose
-    Long sunrise;
+    private Long sunrise;
     @SerializedName("sunset")
     @Expose
-    Long sunset;
+    private Long sunset;
 
     public Sys() {
     }

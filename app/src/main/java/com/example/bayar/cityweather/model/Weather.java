@@ -7,21 +7,21 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class Weather {
 
     @SerializedName("id")
     @Expose
-    Long id;
+    private Long id;
     @SerializedName("main")
     @Expose
-    String main;
+    private String main;
     @SerializedName("description")
     @Expose
-    String description;
+    private String description;
     @SerializedName("icon")
     @Expose
-    String icon;
+    private String icon;
 
     public Weather() {
     }

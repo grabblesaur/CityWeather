@@ -6,24 +6,24 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class Main {
 
     @SerializedName("temp")
     @Expose
-    Double temp;
+    private Double temp;
     @SerializedName("pressure")
     @Expose
-    Double pressure;
+    private Double pressure;
     @SerializedName("humidity")
     @Expose
-    int humidity;
+    private int humidity;
     @SerializedName("temp_min")
     @Expose
-    Double tempMin;
+    private Double tempMin;
     @SerializedName("temp_max")
     @Expose
-    Double tempMax;
+    private Double tempMax;
 
     public Main() {
     }

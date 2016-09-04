@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class Clouds {
 
     @SerializedName("all")
     @Expose
-    int all;
+    private int all;
 
     public Clouds() {
     }
